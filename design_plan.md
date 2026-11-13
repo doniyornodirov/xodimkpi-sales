@@ -137,7 +137,7 @@
   - Tugma ostida markazda mikro-matn: `🔒 0 so'm to'lov • Karta kiritilmaydi • Istalgan payt to'xtatish imkoniyati`.
 
 ### 4.9. 7-Bosqich: Sahifadagi Tezkor Ulanish Shakli (Inline Onboarding Form)
-- Antigravity qutisi: *"Birinchi qadam uchun menga ismingiz va Telegram usernamengizni aytsangiz bas — tizimni bir necha daqiqada sizga ko'rsatib beramiz!"*.
+- XodimKPI qutisi: *"Birinchi qadam uchun ismingiz va Telegram usernamengizni qoldirsangiz bas — tizimni bir necha daqiqada sizga ko'rsatib beramiz!"*.
 - **Maydonlar (Aniq 4 ta element — 2x2 grid desktopda, 1 ustun mobilda)**:
   1. `Ismingiz *` (`#inline-comp`, placeholder: `Ismingizni kiriting (Masalan: Sardor)`)
   2. `Telegram usernamengiz *` (`#inline-lead-tg`, placeholder: `Masalan: @username`)
