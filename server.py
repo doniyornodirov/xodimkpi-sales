@@ -24,7 +24,7 @@ if __name__ == '__main__':
     os.chdir(DIRECTORY)
     server_address = ('0.0.0.0', PORT)
     with ThreadedHTTPServer(server_address, NoCacheHTTPRequestHandler) as httpd:
-        print(f"Xodim-Reyting Sales V2 running at:")
+        print(f"XodimKPI Sales V2 running at:")
         print(f"Local:   http://localhost:{PORT}")
         print(f"Network: http://10.77.65.24:{PORT}")
         sys.stdout.flush()

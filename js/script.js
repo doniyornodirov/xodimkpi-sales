@@ -1,5 +1,5 @@
 /**
- * Xodim-Reyting & Paynet CRM - Sales Page Interactive Logic (v2)
+ * XodimKPI & Paynet CRM - Sales Page Interactive Logic (v2)
  */
 
 document.addEventListener('DOMContentLoaded', () => {

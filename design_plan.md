@@ -1,6 +1,6 @@
-# DESIGN_PLAN.md — Xodim-Reyting CRM Sotuv Sayti (V2) Dizayn Arxitekturasi
+# DESIGN_PLAN.md — XodimKPI CRM Sotuv Sayti (V2) Dizayn Arxitekturasi
 
-> **Hujjat maqsadi**: Ushbu hujjat Xodim-Reyting CRM loyihasining sotuv sahifasi (`xodim-reyting-sales-v2`) dizayn tizimi, vizual standartlari, ranglar palitrasi, tipografiyasi, komponentlar tuzilishi va foydalanuvchi tajribasi (UX) qoidalarini kelgusida o'zgartirishlar kiritishda asrab qolish va xatoliklarga yo'l qo'ymaslik uchun yaratildi.
+> **Hujjat maqsadi**: Ushbu hujjat XodimKPI CRM loyihasining sotuv sahifasi (`xodim-reyting-sales-v2` / `xodimkpi.uz`) dizayn tizimi, vizual standartlari, ranglar palitrasi, tipografiyasi, komponentlar tuzilishi va foydalanuvchi tajribasi (UX) qoidalarini kelgusida o'zgartirishlar kiritishda asrab qolish va xatoliklarga yo'l qo'ymaslik uchun yaratildi.
 
 ---
 
