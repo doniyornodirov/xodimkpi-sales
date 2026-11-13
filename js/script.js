@@ -295,7 +295,50 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }, 35000);
 
-  // 6. Telegram Lead Submission Form
+  // 6. Asosiy Lead (Lid) Yuborish Mantiqi (Bosh Rahbar Telegramiga & CRM Bazasiga)
+  const CRM_API_URL = "https://crm.xodimkpi.uz/api/leads";
+
+  async function sendLeadToCRM(payload, submitBtn, successCallback) {
+    const originalText = submitBtn ? submitBtn.innerHTML : '';
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '⏳ Yuborilmoqda...';
+    }
+
+    try {
+      const response = await fetch(CRM_API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await response.json();
+      if (response.ok && data.success) {
+        if (successCallback) successCallback();
+        alert(`✅ Rahmat, ${payload.name}!\n\nSizning so'rovingiz qabul qilindi. Bosh rahbarimiz tez orada siz bilan bog'lanadi!`);
+      } else {
+        throw new Error(data.detail || data.message || "Xatolik yuz berdi");
+      }
+    } catch (err) {
+      console.warn("API orqali yuborishda ogohlantirish, Telegram fallback ishga tushdi:", err);
+      // Favqulodda holatda Telegram orqali yuborish
+      const fallbackUrl = `https://t.me/doniyornodirov?text=${encodeURIComponent(
+        `🚀 Yangi So'rov (XodimKPI)\n\n👤 Ism: ${payload.name}\n📞 Tel: ${payload.phone}\n📱 Telegram: ${payload.telegram || ''}\n📦 Tarif: ${payload.plan}`
+      )}`;
+      window.open(fallbackUrl, '_blank');
+      alert(`Rahmat, ${payload.name}! Sizning so'rovingiz qabul qilindi.`);
+      if (successCallback) successCallback();
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
+      }
+    }
+  }
+
+  // Modal orqali lid yuborish
   const leadForm = document.getElementById('lead-submission-form');
   if (leadForm) {
     leadForm.addEventListener('submit', (e) => {
@@ -304,35 +347,25 @@ document.addEventListener('DOMContentLoaded', () => {
       const userName = document.getElementById('field-company')?.value || '';
       const leaderTg = document.getElementById('field-telegram')?.value || '';
       const phone = document.getElementById('field-phone')?.value || '';
-      const planValue = modalPlanSelect ? modalPlanSelect.value : '';
       const planText = modalPlanSelect ? modalPlanSelect.options[modalPlanSelect.selectedIndex].text : 'Oylik tarif';
+      const submitBtn = document.getElementById('modal-submit-btn');
 
-      const isTrial = planValue === 'trial_7days' || planText.includes('7 Kunlik');
+      const payload = {
+        name: userName,
+        phone: phone,
+        telegram: leaderTg,
+        plan: planText,
+        source: 'xodimkpi.uz (Modal Form)'
+      };
 
-      const headerLine = isTrial 
-        ? `🎁 *Yangi So'rov: 7 KUNLIK BEPUL SINOV (Test-Drive)*` 
-        : `🚀 *Yangi CRM Buyurtmasi (Sotuv Sayti V2)*`;
-
-      const message = `${headerLine}\n\n` +
-        `👤 *Ism:* ${userName}\n` +
-        (leaderTg ? `📱 *Telegram:* ${leaderTg}\n` : '') +
-        `📞 *Telefon:* ${phone}\n` +
-        `📦 *Tanlangan Tarif:* ${planText}\n\n` +
-        (isTrial 
-          ? `_7 kunlik 100% bepul litsenziyani ulab berish uchun so'rov qoldirildi._` 
-          : `_Tizimni ulash va jonli ko'rsatish uchun so'rov yuborildi._`);
-
-      const tgUrl = `https://t.me/doniyornodirov?text=${encodeURIComponent(message)}`;
-      
-      // Open Telegram
-      window.open(tgUrl, '_blank');
-      
-      closeModal();
-      alert("Rahmat! Sizning so'rovingiz qabul qilindi. Dasturchi bilan Telegram orqali bog'lanish oynasi ochilmoqda.");
+      sendLeadToCRM(payload, submitBtn, () => {
+        leadForm.reset();
+        closeModal();
+      });
     });
   }
 
-  // Inline Quick Form
+  // Inline tezkor ulanish formasi
   const inlineForm = document.getElementById('inline-onboard-form');
   if (inlineForm) {
     inlineForm.addEventListener('submit', (e) => {
@@ -342,25 +375,20 @@ document.addEventListener('DOMContentLoaded', () => {
       const leaderTg = document.getElementById('inline-lead-tg')?.value || '';
       const phone = document.getElementById('inline-phone')?.value || '';
       const planElem = document.getElementById('inline-plan');
-      const planValue = planElem ? planElem.value : '';
-      const planText = planElem ? planElem.options[planElem.selectedIndex].text : 'Oylik tarif';
+      const planText = planElem ? planElem.options[planElem.selectedIndex].text : '1 Yillik tarif';
+      const submitBtn = inlineForm.querySelector('button[type="submit"]');
 
-      const isTrial = planValue === 'trial_7days' || planText.includes('7 Kunlik');
+      const payload = {
+        name: userName,
+        phone: phone,
+        telegram: leaderTg,
+        plan: planText,
+        source: 'xodimkpi.uz (Inline Form)'
+      };
 
-      const headerLine = isTrial 
-        ? `🎁 *Yangi So'rov: 7 KUNLIK BEPUL SINOV (Test-Drive)*` 
-        : `🚀 *Tezkor Ulanish So'rovi (Inline Form)*`;
-
-      const message = `${headerLine}\n\n` +
-        `👤 *Ism:* ${userName}\n` +
-        (leaderTg ? `📱 *Telegram:* ${leaderTg}\n` : '') +
-        `📞 *Telefon:* ${phone}\n` +
-        `📦 *Tarif:* ${planText}`;
-
-      const tgUrl = `https://t.me/doniyornodirov?text=${encodeURIComponent(message)}`;
-      window.open(tgUrl, '_blank');
-
-      alert("So'rovingiz muvaffaqiyatli jo'natildi! Dasturchi siz bilan 15 daqiqa ichida bog'lanadi.");
+      sendLeadToCRM(payload, submitBtn, () => {
+        inlineForm.reset();
+      });
     });
   }
 });
