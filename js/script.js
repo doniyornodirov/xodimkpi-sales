@@ -375,4 +375,39 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
+
+  // 10. Image Lightbox for Real CRM Interface Previews
+  window.openLightbox = function(src, title) {
+    const modal = document.getElementById('image-lightbox-modal');
+    const img = document.getElementById('lightbox-img');
+    const titleEl = document.getElementById('lightbox-title');
+    if (!modal || !img) return;
+    img.src = src;
+    if (titleEl) titleEl.textContent = title || 'CRM Interfeysi';
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  };
+
+  window.closeLightbox = function() {
+    const modal = document.getElementById('image-lightbox-modal');
+    if (!modal) return;
+    modal.style.display = 'none';
+    document.body.style.overflow = '';
+  };
+
+  const closeLightboxBtn = document.getElementById('close-lightbox-btn');
+  if (closeLightboxBtn) {
+    closeLightboxBtn.addEventListener('click', window.closeLightbox);
+  }
+
+  const lightboxBackdrop = document.getElementById('lightbox-backdrop');
+  if (lightboxBackdrop) {
+    lightboxBackdrop.addEventListener('click', window.closeLightbox);
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      window.closeLightbox();
+    }
+  });
 });
