@@ -268,32 +268,16 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Trigger 1: Scroll past pricing section without purchasing
-  const pricingSection = document.getElementById('pricing');
-  if (pricingSection) {
-    window.addEventListener('scroll', () => {
-      if (nudgeShown) return;
-      const rect = pricingSection.getBoundingClientRect();
-      // If user has scrolled through pricing and reached bottom of it
-      if (rect.bottom < window.innerHeight * 0.75) {
-        showNudgeToast();
-      }
-    }, { passive: true });
-  }
+  // Faqat foydalanuvchi sahifa oxiriga (footer / oxirgi bo'limga) yetgandagina qalqib chiqish
+  window.addEventListener('scroll', () => {
+    if (nudgeShown) return;
+    const scrollPos = window.innerHeight + window.scrollY;
+    const threshold = document.documentElement.scrollHeight - 400; // Sahifa oxiriga 400px yetganda
 
-  // Trigger 2: Desktop Exit-Intent (mouse moves to top address bar)
-  document.addEventListener('mouseleave', (e) => {
-    if (e.clientY <= 5 && !nudgeShown) {
+    if (scrollPos >= threshold) {
       showNudgeToast();
     }
-  });
-
-  // Trigger 3: Inactivity timer (35 seconds of reading)
-  setTimeout(() => {
-    if (!nudgeShown) {
-      showNudgeToast();
-    }
-  }, 35000);
+  }, { passive: true });
 
   // 6. Asosiy Lead (Lid) Yuborish Mantiqi (Bosh Rahbar Telegramiga & CRM Bazasiga)
   const CRM_API_URL = "https://crm.xodimkpi.uz/api/leads";
