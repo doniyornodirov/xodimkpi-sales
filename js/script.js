@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const teamLabel = q1 === '1-5' ? '1-5 ta xodim' : (q1 === '6-15' ? '6-15 ta xodim' : (q1 === '16-25' ? '16-25 ta xodim' : '26+ ta xodim'));
     if (resultDesc) {
-      resultDesc.innerHTML = `Siz tanlagan <strong>${teamLabel}</strong> hajmiga ko'ra: ${painMsg} Har kuni soat 20:00 da Telegramingizga tayyor kunlik svodka keladi.`;
+      resultDesc.innerHTML = `Siz tanlagan <strong>${teamLabel}</strong> hajmiga ko'ra: ${painMsg} Har kuni soat 23:55 da Telegramingizga tayyor kunlik svodka keladi.`;
     }
 
     // Update modal preselected plan
