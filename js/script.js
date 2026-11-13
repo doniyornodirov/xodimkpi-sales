@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       if (modalTitle) modalTitle.textContent = '7 Kunlik Bepul Sinovni Ulab Berish';
       if (modalDesc) {
-        modalDesc.textContent = "15 daqiqada 7 kunlik to'liq litsenziyani bepul ulab beramiz. Karta yoki to'lov talab qilinmaydi!";
+        modalDesc.textContent = "Tez fursatda 7 kunlik to'liq litsenziyani bepul ulab beramiz. Karta yoki to'lov talab qilinmaydi!";
       }
       if (modalSubmitBtn) {
         modalSubmitBtn.innerHTML = '🎁 7 Kunlik Bepul Sinovni Boshlash';
@@ -180,9 +180,9 @@ document.addEventListener('DOMContentLoaded', () => {
         modalPillBadge.textContent = 'Tezkor Bog\'lanish';
         modalPillBadge.className = 'pill-badge pill-cyan';
       }
-      if (modalTitle) modalTitle.textContent = 'Buyurtma va Jonli Demo';
+      if (modalTitle) modalTitle.textContent = 'Buyurtma va Demoga Yozilish';
       if (modalDesc) {
-        modalDesc.textContent = "15 daqiqa ichida siz bilan bog'lanamiz va tizimni ko'rsatamiz.";
+        modalDesc.textContent = "Tez fursatda siz bilan bog'lanamiz va shaxobchangizga ulab beramiz.";
       }
       if (modalSubmitBtn) {
         modalSubmitBtn.innerHTML = '🚀 Yuborish & Dasturchi Bilan Bog\'lanish';
