@@ -1,0 +1,366 @@
+/**
+ * Xodim-Reyting & Paynet CRM - Sales Page Interactive Logic (v2)
+ */
+
+document.addEventListener('DOMContentLoaded', () => {
+  // 1. Role Tabs Switching
+  const roleTabBtns = document.querySelectorAll('.role-tab-btn');
+  const rolePanels = document.querySelectorAll('.role-panel');
+
+  roleTabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetRole = btn.getAttribute('data-role');
+      
+      roleTabBtns.forEach(b => b.classList.remove('active'));
+      rolePanels.forEach(p => p.classList.remove('active'));
+
+      btn.classList.add('active');
+      btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      const targetPanel = document.getElementById(`panel-${targetRole}`);
+      if (targetPanel) {
+        targetPanel.classList.add('active');
+      }
+    });
+  });
+
+  // 2. Objection Accordion Toggle
+  const accordionItems = document.querySelectorAll('.accordion-item');
+
+  accordionItems.forEach(item => {
+    const header = item.querySelector('.accordion-header');
+    header.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      
+      // Close other accordions for clean mobile viewing
+      accordionItems.forEach(i => i.classList.remove('open'));
+      
+      if (!isOpen) {
+        item.classList.add('open');
+      }
+    });
+  });
+
+  // Monthly Plan Collapsible Toggle
+  const toggleMonthlyBtn = document.getElementById('toggle-monthly-plan-btn');
+  const monthlyPlanContainer = document.getElementById('monthly-plan-container');
+
+  if (toggleMonthlyBtn && monthlyPlanContainer) {
+    toggleMonthlyBtn.addEventListener('click', () => {
+      const isOpen = monthlyPlanContainer.classList.contains('open');
+      if (isOpen) {
+        monthlyPlanContainer.classList.remove('open');
+        toggleMonthlyBtn.classList.remove('open');
+        const span = toggleMonthlyBtn.querySelector('span');
+        if (span) span.textContent = "Oylik obunani ko'rish";
+      } else {
+        monthlyPlanContainer.classList.add('open');
+        toggleMonthlyBtn.classList.add('open');
+        const span = toggleMonthlyBtn.querySelector('span');
+        if (span) span.textContent = "Oylik obunani yashirish";
+        monthlyPlanContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    });
+  }
+
+  // 3. Discovery Quiz / Audit Calculator
+  const quizInputs = document.querySelectorAll('.quiz-input');
+  
+  function updateQuizResult() {
+    const q1 = document.querySelector('input[name="q_branches"]:checked')?.value || '1-5';
+    const q2 = document.querySelector('input[name="q_method"]:checked')?.value || 'daftar';
+    const q3 = document.querySelector('input[name="q_pain"]:checked')?.value || 'karta';
+
+    // Update active class on label wrappers
+    document.querySelectorAll('.quiz-option-label').forEach(label => {
+      const radio = label.querySelector('input[type="radio"]');
+      if (radio && radio.checked) {
+        label.classList.add('active');
+      } else {
+        label.classList.remove('active');
+      }
+    });
+
+    const resultTariffBadge = document.getElementById('res-tariff-badge');
+    const resultTitle = document.getElementById('res-title');
+    const resultDesc = document.getElementById('res-desc');
+    const statTejam = document.getElementById('res-stat-tejam');
+    const statVaqt = document.getElementById('res-stat-vaqt');
+    const statXato = document.getElementById('res-stat-xato');
+
+    let recommendedPlan = "Oylik tarif (500 000 so'm)";
+    let targetPlanValue = "oylik";
+    let estSavings = "1 200 000 so'm / oy";
+    let estTime = "1-2 soat / kun";
+
+    if (q1 === '1-5') {
+      recommendedPlan = "Oylik tarif (500 000 so'm/oy)";
+      targetPlanValue = "oylik";
+      estSavings = "1 500 000 so'm / oy";
+      estTime = "1.5 soat / kun";
+    } else if (q1 === '6-15') {
+      recommendedPlan = "1 Yillik tarif (15 xodim — 4 800 000 so'm/yil)";
+      targetPlanValue = "yillik";
+      estSavings = "3 800 000 so'm / oy";
+      estTime = "2.5 soat / kun";
+    } else if (q1 === '16-25') {
+      recommendedPlan = "1 Yillik tarif (25 xodim — 6 240 000 so'm/yil)";
+      targetPlanValue = "yillik_25";
+      estSavings = "5 500 000 so'm / oy";
+      estTime = "3 soat / kun";
+    } else {
+      recommendedPlan = "5 Yillik VIP Litsenziya (14 900 000 so'm)";
+      targetPlanValue = "vip";
+      estSavings = "7 500 000+ so'm / oy";
+      estTime = "3.5+ soat / kun";
+    }
+
+    if (resultTariffBadge) resultTariffBadge.textContent = recommendedPlan;
+    if (statTejam) statTejam.textContent = estSavings;
+    if (statVaqt) statVaqt.textContent = estTime;
+    if (statXato) statXato.textContent = "0 ta kassa kamomadi";
+
+    let painMsg = "Karta to'ldirishdagi takroriy xatolar va +3% hisob-kitob butunlay avtomatlashtiriladi.";
+    if (q3 === 'sim') {
+      painMsg = "5 ta operator bo'yicha 18 xonali seriya qidiruvi bilan birorta ham sim-karta yo'qolmaydi.";
+    } else if (q3 === 'kassa') {
+      painMsg = "So'm va dollar alohida olinadi, rahbar kursi bo'yicha hisoblanib xodimga Telegram chek boradi.";
+    } else if (q3 === 'qarz') {
+      painMsg = "Xodimlar qarzdorligi avtomatik saqlanib, 8 soatlik jonli lokatsiya bilan intizom ta'minlanadi.";
+    }
+
+    const teamLabel = q1 === '1-5' ? '1-5 ta xodim' : (q1 === '6-15' ? '6-15 ta xodim' : (q1 === '16-25' ? '16-25 ta xodim' : '26+ ta xodim'));
+    if (resultDesc) {
+      resultDesc.innerHTML = `Siz tanlagan <strong>${teamLabel}</strong> hajmiga ko'ra: ${painMsg} Har kuni soat 20:00 da Telegramingizga tayyor kunlik svodka keladi.`;
+    }
+
+    // Update modal preselected plan
+    const modalPlanSelect = document.getElementById('modal-plan-select');
+    if (modalPlanSelect) {
+      modalPlanSelect.value = targetPlanValue;
+    }
+
+    const resultCtaBtn = document.querySelector('.result-cta-btn');
+    if (resultCtaBtn) {
+      resultCtaBtn.setAttribute('data-plan', targetPlanValue);
+    }
+  }
+
+  quizInputs.forEach(input => {
+    input.addEventListener('change', updateQuizResult);
+  });
+  // Initial call
+  updateQuizResult();
+
+  // 4. Modal Window Logic
+  const modal = document.getElementById('lead-modal');
+  const openModalBtns = document.querySelectorAll('.open-modal-trigger');
+  const closeModalBtn = document.getElementById('close-modal-btn');
+  const modalPlanSelect = document.getElementById('modal-plan-select');
+  const modalPillBadge = document.getElementById('modal-pill-badge');
+  const modalTitle = document.getElementById('modal-title');
+  const modalDesc = document.getElementById('modal-desc');
+  const modalSubmitBtn = document.getElementById('modal-submit-btn');
+
+  function updateModalUI(plan) {
+    if (plan === 'trial_7days') {
+      if (modalPillBadge) {
+        modalPillBadge.textContent = '🎁 100% Bepul Test-Drive';
+        modalPillBadge.className = 'pill-badge pill-emerald';
+      }
+      if (modalTitle) modalTitle.textContent = '7 Kunlik Bepul Sinovni Ulab Berish';
+      if (modalDesc) {
+        modalDesc.textContent = "15 daqiqada 7 kunlik to'liq litsenziyani bepul ulab beramiz. Karta yoki to'lov talab qilinmaydi!";
+      }
+      if (modalSubmitBtn) {
+        modalSubmitBtn.innerHTML = '🎁 7 Kunlik Bepul Sinovni Boshlash';
+        modalSubmitBtn.className = 'btn btn-emerald';
+      }
+    } else {
+      if (modalPillBadge) {
+        modalPillBadge.textContent = 'Tezkor Bog\'lanish';
+        modalPillBadge.className = 'pill-badge pill-cyan';
+      }
+      if (modalTitle) modalTitle.textContent = 'Buyurtma va Jonli Demo';
+      if (modalDesc) {
+        modalDesc.textContent = "15 daqiqa ichida siz bilan bog'lanamiz va tizimni ko'rsatamiz.";
+      }
+      if (modalSubmitBtn) {
+        modalSubmitBtn.innerHTML = '🚀 Yuborish & Dasturchi Bilan Bog\'lanish';
+        modalSubmitBtn.className = 'btn btn-amber';
+      }
+    }
+  }
+
+  function openModal(plan = null) {
+    const targetPlan = plan || (modalPlanSelect ? modalPlanSelect.value : 'yillik');
+    if (modalPlanSelect && plan) {
+      modalPlanSelect.value = plan;
+    }
+    updateModalUI(targetPlan);
+
+    // Hide nudge toast if open
+    hideNudgeToast();
+
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  if (modalPlanSelect) {
+    modalPlanSelect.addEventListener('change', () => {
+      updateModalUI(modalPlanSelect.value);
+    });
+  }
+
+  // Bind all modal trigger buttons (delegated or static)
+  document.addEventListener('click', (e) => {
+    const trigger = e.target.closest('.open-modal-trigger');
+    if (trigger) {
+      e.preventDefault();
+      const plan = trigger.getAttribute('data-plan') || 'trial_7days';
+      openModal(plan);
+    }
+  });
+
+  if (closeModalBtn) {
+    closeModalBtn.addEventListener('click', closeModal);
+  }
+
+  if (modal) {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+  }
+
+  // 5. Smart Floating Downsell Toast (7 Kunlik Bepul Sinov Taklifi)
+  const nudgeToast = document.getElementById('trial-nudge-toast');
+  const nudgeCloseBtn = document.getElementById('trial-nudge-close');
+  let nudgeShown = false;
+
+  function showNudgeToast() {
+    if (nudgeShown || sessionStorage.getItem('trial_nudge_dismissed') === 'true') return;
+    if (modal && modal.classList.contains('active')) return;
+
+    if (nudgeToast) {
+      nudgeToast.classList.add('active');
+      nudgeToast.setAttribute('aria-hidden', 'false');
+      nudgeShown = true;
+    }
+  }
+
+  function hideNudgeToast() {
+    if (nudgeToast) {
+      nudgeToast.classList.remove('active');
+      nudgeToast.setAttribute('aria-hidden', 'true');
+    }
+  }
+
+  if (nudgeCloseBtn) {
+    nudgeCloseBtn.addEventListener('click', () => {
+      hideNudgeToast();
+      sessionStorage.setItem('trial_nudge_dismissed', 'true');
+    });
+  }
+
+  // Trigger 1: Scroll past pricing section without purchasing
+  const pricingSection = document.getElementById('pricing');
+  if (pricingSection) {
+    window.addEventListener('scroll', () => {
+      if (nudgeShown) return;
+      const rect = pricingSection.getBoundingClientRect();
+      // If user has scrolled through pricing and reached bottom of it
+      if (rect.bottom < window.innerHeight * 0.75) {
+        showNudgeToast();
+      }
+    }, { passive: true });
+  }
+
+  // Trigger 2: Desktop Exit-Intent (mouse moves to top address bar)
+  document.addEventListener('mouseleave', (e) => {
+    if (e.clientY <= 5 && !nudgeShown) {
+      showNudgeToast();
+    }
+  });
+
+  // Trigger 3: Inactivity timer (35 seconds of reading)
+  setTimeout(() => {
+    if (!nudgeShown) {
+      showNudgeToast();
+    }
+  }, 35000);
+
+  // 6. Telegram Lead Submission Form
+  const leadForm = document.getElementById('lead-submission-form');
+  if (leadForm) {
+    leadForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const userName = document.getElementById('field-company')?.value || '';
+      const leaderTg = document.getElementById('field-telegram')?.value || '';
+      const phone = document.getElementById('field-phone')?.value || '';
+      const planValue = modalPlanSelect ? modalPlanSelect.value : '';
+      const planText = modalPlanSelect ? modalPlanSelect.options[modalPlanSelect.selectedIndex].text : 'Oylik tarif';
+
+      const isTrial = planValue === 'trial_7days' || planText.includes('7 Kunlik');
+
+      const headerLine = isTrial 
+        ? `🎁 *Yangi So'rov: 7 KUNLIK BEPUL SINOV (Test-Drive)*` 
+        : `🚀 *Yangi CRM Buyurtmasi (Sotuv Sayti V2)*`;
+
+      const message = `${headerLine}\n\n` +
+        `👤 *Ism:* ${userName}\n` +
+        (leaderTg ? `📱 *Telegram:* ${leaderTg}\n` : '') +
+        `📞 *Telefon:* ${phone}\n` +
+        `📦 *Tanlangan Tarif:* ${planText}\n\n` +
+        (isTrial 
+          ? `_7 kunlik 100% bepul litsenziyani ulab berish uchun so'rov qoldirildi._` 
+          : `_Tizimni ulash va jonli ko'rsatish uchun so'rov yuborildi._`);
+
+      const tgUrl = `https://t.me/doniyornodirov?text=${encodeURIComponent(message)}`;
+      
+      // Open Telegram
+      window.open(tgUrl, '_blank');
+      
+      closeModal();
+      alert("Rahmat! Sizning so'rovingiz qabul qilindi. Dasturchi bilan Telegram orqali bog'lanish oynasi ochilmoqda.");
+    });
+  }
+
+  // Inline Quick Form
+  const inlineForm = document.getElementById('inline-onboard-form');
+  if (inlineForm) {
+    inlineForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const userName = document.getElementById('inline-comp')?.value || '';
+      const leaderTg = document.getElementById('inline-lead-tg')?.value || '';
+      const phone = document.getElementById('inline-phone')?.value || '';
+      const planElem = document.getElementById('inline-plan');
+      const planValue = planElem ? planElem.value : '';
+      const planText = planElem ? planElem.options[planElem.selectedIndex].text : 'Oylik tarif';
+
+      const isTrial = planValue === 'trial_7days' || planText.includes('7 Kunlik');
+
+      const headerLine = isTrial 
+        ? `🎁 *Yangi So'rov: 7 KUNLIK BEPUL SINOV (Test-Drive)*` 
+        : `🚀 *Tezkor Ulanish So'rovi (Inline Form)*`;
+
+      const message = `${headerLine}\n\n` +
+        `👤 *Ism:* ${userName}\n` +
+        (leaderTg ? `📱 *Telegram:* ${leaderTg}\n` : '') +
+        `📞 *Telefon:* ${phone}\n` +
+        `📦 *Tarif:* ${planText}`;
+
+      const tgUrl = `https://t.me/doniyornodirov?text=${encodeURIComponent(message)}`;
+      window.open(tgUrl, '_blank');
+
+      alert("So'rovingiz muvaffaqiyatli jo'natildi! Dasturchi siz bilan 15 daqiqa ichida bog'lanadi.");
+    });
+  }
+});

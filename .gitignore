@@ -1,0 +1,15 @@
+# System & Editor
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.pyc
+
+# Temp / build
+video_build/
+video_temp/
+*.mp4
