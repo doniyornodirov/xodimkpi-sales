@@ -1448,7 +1448,6 @@ button {
   top: 10px;
   right: 10px;
   color: var(--text-dim);
-  font-size: 1.25rem;
   cursor: pointer;
   width: 26px;
   height: 26px;
@@ -1456,13 +1455,22 @@ button {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(255, 255, 255, 0.05);
+  padding: 0;
   transition: all 0.2s ease;
 }
 
 .trial-nudge-close:hover {
-  color: var(--text-main);
-  background: rgba(255, 255, 255, 0.15);
+  color: #f87171;
+  background: rgba(239, 68, 68, 0.16);
+  border-color: rgba(239, 68, 68, 0.4);
+}
+
+.trial-nudge-close svg {
+  width: 12px;
+  height: 12px;
+  display: block;
 }
 
 .trial-nudge-badge {
@@ -1641,22 +1649,33 @@ button {
   position: absolute;
   top: 14px;
   right: 14px;
-  color: var(--text-muted);
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.06);
+  color: #94a3b8;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.08);
-  font-size: 1.25rem;
+  padding: 0;
+  margin: 0;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 10;
 }
 
 .modal-close-btn:hover {
-  background: rgba(255, 255, 255, 0.15);
-  color: #fff;
+  background: rgba(239, 68, 68, 0.16);
+  border-color: rgba(239, 68, 68, 0.4);
+  color: #f87171;
+  transform: rotate(90deg);
+}
+
+.modal-close-btn svg {
+  width: 16px;
+  height: 16px;
+  display: block;
 }
 
 .modal-title {
@@ -2309,11 +2328,14 @@ button {
   }
 
   .modal-close-btn {
-    top: 14px;
-    right: 14px;
-    width: 30px;
-    height: 30px;
-    font-size: 1.15rem;
+    top: 12px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+  }
+  .modal-close-btn svg {
+    width: 14px;
+    height: 14px;
   }
 
   .modal-title {
