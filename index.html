@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=2.35">
+  <link rel="stylesheet" href="css/style.css?v=2.36">
   <link rel="icon" type="image/svg+xml" href="assets/icon.svg?v=2.3">
   <link rel="apple-touch-icon" href="assets/icon-192.png?v=2.3">
 </head>
@@ -292,11 +292,11 @@
           <button class="role-tab-btn active" data-role="rahbar">
             👑 Bosh Rahbar (10 ta Bo'lim)
           </button>
-          <button class="role-tab-btn" data-role="kassir">
-            💵 Kassir Uchun
-          </button>
           <button class="role-tab-btn" data-role="xodim">
             📱 Xodimlar Uchun (Web CRM)
+          </button>
+          <button class="role-tab-btn" data-role="kassir">
+            💵 Kassir Uchun
           </button>
         </div>
 
@@ -493,7 +493,175 @@
           </div>
         </div>
 
-        <!-- 2-ROL: KASSIR -->
+        <!-- 2-ROL: XODIMLAR -->
+        <div class="role-panel" id="panel-xodim">
+          <div class="role-panel-card">
+            <div class="role-hero-bar">
+              <div class="role-title-wrap">
+                <div class="role-icon-box">📱</div>
+                <div>
+                  <h3 class="role-name">Xodimlar Uchun: Telefon va Kompyuterda Qulay CRM</h3>
+                  <div class="role-subtitle">Har bir operator xatoga yo'l qo'ymasligi va motivatsiya bilan ishlashi uchun</div>
+                </div>
+              </div>
+              <div class="pill-badge pill-cyan">Veb CRM Platforma</div>
+            </div>
+
+            <!-- Haqiqiy Xodim CRM Interfeysi Skrinshoti -->
+            <div class="role-interface-preview">
+              <div class="preview-browser-frame">
+                <div class="preview-frame-header">
+                  <div class="preview-dots">
+                    <span class="p-dot dot-r"></span>
+                    <span class="p-dot dot-y"></span>
+                    <span class="p-dot dot-g"></span>
+                  </div>
+                  <div class="preview-address-bar">
+                    <span class="lock-icon">🔒</span> https://crm.xodimkpi.uz <span class="badge-role-view">Xodim & Kassir Ish Oynasi</span>
+                  </div>
+                  <div class="preview-badge-status preview-badge-video">
+                    <span class="live-pulse video-pulse"></span> Jonli Video Ko'rsatuv
+                  </div>
+                </div>
+                <div class="custom-video-player" id="player-xodim" data-player="xodim">
+                  <video 
+                    id="xodimVideoPlayer" 
+                    class="custom-player-video" 
+                    playsinline 
+                    preload="metadata" 
+                    poster="assets/crm_preview_xodim.jpg?v=2.32">
+                    <source src="assets/crm_preview_xodim.mp4?v=2.32" type="video/mp4">
+                    Brauzeringiz videoni qo'llab-quvvatlamaydi.
+                  </video>
+
+                  <!-- Big Center Play Overlay -->
+                  <div class="player-big-overlay" id="xodimBigOverlay">
+                    <div class="play-pulse-wrapper">
+                      <div class="play-pulse-ring"></div>
+                      <div class="play-pulse-ring delay-ring"></div>
+                      <button class="player-big-play-btn" type="button" aria-label="Videoni ijro etish">
+                        <svg width="34" height="34" viewBox="0 0 24 24" fill="currentColor">
+                          <polygon points="6 3 20 12 6 21 6 3"/>
+                        </svg>
+                      </button>
+                    </div>
+                    <div class="player-overlay-meta">
+                      <span class="player-overlay-title">🎬 Xodim Ish Oynasi Imkoniyatlari</span>
+                      <span class="player-overlay-sub">Karta to'ldirish, +3% ustama va real jarayon • 0:14 sek</span>
+                    </div>
+                  </div>
+
+                  <!-- Quick Center Flash -->
+                  <div class="player-center-flash" id="xodimCenterFlash">
+                    <svg class="flash-icon-play" width="44" height="44" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+                    <svg class="flash-icon-pause" width="44" height="44" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
+                  </div>
+
+                  <!-- Modern Bottom Control Bar -->
+                  <div class="player-controls-bar" id="xodimControlsBar">
+                    <div class="player-progress-container" id="xodimProgressContainer">
+                      <div class="player-progress-track">
+                        <div class="player-progress-buffered" id="xodimBuffered"></div>
+                        <div class="player-progress-fill" id="xodimProgressFill">
+                          <span class="player-progress-thumb"></span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="player-controls-row">
+                      <div class="player-ctrl-group player-ctrl-left">
+                        <button class="player-ctrl-btn btn-play-toggle" type="button" id="xodimPlayBtn" aria-label="Ijro / Pauza">
+                          <svg class="icon-play" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+                          <svg class="icon-pause" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
+                        </button>
+                        <button class="player-ctrl-btn btn-mute-toggle" type="button" id="xodimMuteBtn" aria-label="Ovoz">
+                          <svg class="icon-vol-on" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="currentColor"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+                          <svg class="icon-vol-off" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="currentColor"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+                        </button>
+                        <div class="player-time-tag">
+                          <span class="time-cur" id="xodimTimeCur">0:00</span>
+                          <span class="time-sep">/</span>
+                          <span class="time-dur" id="xodimTimeDur">0:14</span>
+                        </div>
+                      </div>
+
+                      <div class="player-ctrl-group player-ctrl-right">
+                        <span class="player-badge-hd">1080p HD</span>
+                        <button class="player-ctrl-btn btn-fullscreen" type="button" id="xodimFsBtn" aria-label="To'liq ekran">
+                          <svg class="icon-fs-enter" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+                          <svg class="icon-fs-exit" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 14h6m0 0v6m0-6L3 21m17-7h-6m0 0v6m0-6l7 7M10 4v6m0 0H4m6 0L3 3m10 7h6m-6 0V4m0 6l7-7"/></svg>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="preview-callouts">
+                  <div class="callout-chip">
+                    <span class="chip-icon">🎬</span>
+                    <span>Haqiqiy jonli video ko'rsatuv (14 soniya)</span>
+                  </div>
+                  <div class="callout-chip">
+                    <span class="chip-icon">⚠️</span>
+                    <span>Qizil ogohlantirish: <i>«Sizning birgina xatoyingiz sizni qiyin ahvolga soladi!»</i></span>
+                  </div>
+                  <div class="callout-chip">
+                    <span class="chip-icon">⚡</span>
+                    <span>+3% avto-ustama kalkulyatori</span>
+                  </div>
+                  <div class="callout-chip">
+                    <span class="chip-icon">📜</span>
+                    <span>Barcha so'rovlar va kassa holati real-vaqtda</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="role-features-grid">
+              <div class="feature-box">
+                <div class="feature-head">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                  <h4>+3% Ustama va 1 000 So'mga Avto-Yaxlitlash</h4>
+                </div>
+                <p>
+                  Summa kiritilganda +3% qo'shilib, yuqoriga 1 000 so'mga avtomatik yaxlitlanadi (masalan: 50 000 so'm kiritilsa -> 52 000 so'm bo'ladi). Minimal summa 30 000 so'm. Xodim hisob-kitobda adashmaydi.
+                </p>
+              </div>
+
+              <div class="feature-box feature-box-highlight">
+                <span class="feature-badge-alert">Katta Summaga Tushishdan Himoya</span>
+                <div class="feature-head">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f43f5e" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                  <h4>Takroriy Karta Ogohlantirishi</h4>
+                </div>
+                <p>
+                  Bir kunda (Toshkent vaqti) aynan bitta karta raqami qayta kiritilsa, tizim darhol <strong>`DIQQAT: Bu kartaga bugun to'lov qilindi!`</strong> deb ogohlantiradi. Bu xodimning adashib 2 marta pul tashlab yuborishini oldini oladi.
+                </p>
+              </div>
+
+              <div class="feature-box">
+                <div class="feature-head">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  <h4>KPI Ballar va Sog'lom Raqobat</h4>
+                </div>
+                <p>
+                  Har bir million so'mlik aylanma va har bir sotilgan sim-karta uchun xodimga KPI ball beriladi. Xodimlar liderlar jadvalida kim oldinda borayotganini ko'rib, savdoni oshirishga intiladi.
+                </p>
+              </div>
+
+              <div class="feature-box">
+                <div class="feature-head">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+                  <h4>Xato Hisobotdan Avtomatik Qaytarish</h4>
+                </div>
+                <p>
+                  Agar xodim kun oxirida adashib tasdiqlanmagan hisobotni noto'g'ri topshirib yuborsa, qayta topshirishda eski raqamlar avtomatik asliga qaytadi — balans buzilmaydi.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3-ROL: KASSIR -->
         <div class="role-panel" id="panel-kassir">
           <div class="role-panel-card">
             <div class="role-hero-bar">
@@ -664,174 +832,6 @@
                 </div>
                 <p>
                   Barcha qabul qilingan pullarning to'liq arxivi va vaqti saqlanadi. Istalgan kun yoki xodim bo'yicha tarixni 1 klikda tekshirish mumkin.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 3-ROL: XODIMLAR -->
-        <div class="role-panel" id="panel-xodim">
-          <div class="role-panel-card">
-            <div class="role-hero-bar">
-              <div class="role-title-wrap">
-                <div class="role-icon-box">📱</div>
-                <div>
-                  <h3 class="role-name">Xodimlar Uchun: Telefon va Kompyuterda Qulay CRM</h3>
-                  <div class="role-subtitle">Har bir operator xatoga yo'l qo'ymasligi va motivatsiya bilan ishlashi uchun</div>
-                </div>
-              </div>
-              <div class="pill-badge pill-cyan">Veb CRM Platforma</div>
-            </div>
-
-            <!-- Haqiqiy Xodim CRM Interfeysi Skrinshoti -->
-            <div class="role-interface-preview">
-              <div class="preview-browser-frame">
-                <div class="preview-frame-header">
-                  <div class="preview-dots">
-                    <span class="p-dot dot-r"></span>
-                    <span class="p-dot dot-y"></span>
-                    <span class="p-dot dot-g"></span>
-                  </div>
-                  <div class="preview-address-bar">
-                    <span class="lock-icon">🔒</span> https://crm.xodimkpi.uz <span class="badge-role-view">Xodim & Kassir Ish Oynasi</span>
-                  </div>
-                  <div class="preview-badge-status preview-badge-video">
-                    <span class="live-pulse video-pulse"></span> Jonli Video Ko'rsatuv
-                  </div>
-                </div>
-                <div class="custom-video-player" id="player-xodim" data-player="xodim">
-                  <video 
-                    id="xodimVideoPlayer" 
-                    class="custom-player-video" 
-                    playsinline 
-                    preload="metadata" 
-                    poster="assets/crm_preview_xodim.jpg?v=2.32">
-                    <source src="assets/crm_preview_xodim.mp4?v=2.32" type="video/mp4">
-                    Brauzeringiz videoni qo'llab-quvvatlamaydi.
-                  </video>
-
-                  <!-- Big Center Play Overlay -->
-                  <div class="player-big-overlay" id="xodimBigOverlay">
-                    <div class="play-pulse-wrapper">
-                      <div class="play-pulse-ring"></div>
-                      <div class="play-pulse-ring delay-ring"></div>
-                      <button class="player-big-play-btn" type="button" aria-label="Videoni ijro etish">
-                        <svg width="34" height="34" viewBox="0 0 24 24" fill="currentColor">
-                          <polygon points="6 3 20 12 6 21 6 3"/>
-                        </svg>
-                      </button>
-                    </div>
-                    <div class="player-overlay-meta">
-                      <span class="player-overlay-title">🎬 Xodim Ish Oynasi Imkoniyatlari</span>
-                      <span class="player-overlay-sub">Karta to'ldirish, +3% ustama va real jarayon • 0:14 sek</span>
-                    </div>
-                  </div>
-
-                  <!-- Quick Center Flash -->
-                  <div class="player-center-flash" id="xodimCenterFlash">
-                    <svg class="flash-icon-play" width="44" height="44" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
-                    <svg class="flash-icon-pause" width="44" height="44" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
-                  </div>
-
-                  <!-- Modern Bottom Control Bar -->
-                  <div class="player-controls-bar" id="xodimControlsBar">
-                    <div class="player-progress-container" id="xodimProgressContainer">
-                      <div class="player-progress-track">
-                        <div class="player-progress-buffered" id="xodimBuffered"></div>
-                        <div class="player-progress-fill" id="xodimProgressFill">
-                          <span class="player-progress-thumb"></span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="player-controls-row">
-                      <div class="player-ctrl-group player-ctrl-left">
-                        <button class="player-ctrl-btn btn-play-toggle" type="button" id="xodimPlayBtn" aria-label="Ijro / Pauza">
-                          <svg class="icon-play" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
-                          <svg class="icon-pause" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
-                        </button>
-                        <button class="player-ctrl-btn btn-mute-toggle" type="button" id="xodimMuteBtn" aria-label="Ovoz">
-                          <svg class="icon-vol-on" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="currentColor"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
-                          <svg class="icon-vol-off" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="currentColor"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
-                        </button>
-                        <div class="player-time-tag">
-                          <span class="time-cur" id="xodimTimeCur">0:00</span>
-                          <span class="time-sep">/</span>
-                          <span class="time-dur" id="xodimTimeDur">0:14</span>
-                        </div>
-                      </div>
-
-                      <div class="player-ctrl-group player-ctrl-right">
-                        <span class="player-badge-hd">1080p HD</span>
-                        <button class="player-ctrl-btn btn-fullscreen" type="button" id="xodimFsBtn" aria-label="To'liq ekran">
-                          <svg class="icon-fs-enter" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
-                          <svg class="icon-fs-exit" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 14h6m0 0v6m0-6L3 21m17-7h-6m0 0v6m0-6l7 7M10 4v6m0 0H4m6 0L3 3m10 7h6m-6 0V4m0 6l7-7"/></svg>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="preview-callouts">
-                  <div class="callout-chip">
-                    <span class="chip-icon">🎬</span>
-                    <span>Haqiqiy jonli video ko'rsatuv (14 soniya)</span>
-                  </div>
-                  <div class="callout-chip">
-                    <span class="chip-icon">⚠️</span>
-                    <span>Qizil ogohlantirish: <i>«Sizning birgina xatoyingiz sizni qiyin ahvolga soladi!»</i></span>
-                  </div>
-                  <div class="callout-chip">
-                    <span class="chip-icon">⚡</span>
-                    <span>+3% avto-ustama kalkulyatori</span>
-                  </div>
-                  <div class="callout-chip">
-                    <span class="chip-icon">📜</span>
-                    <span>Barcha so'rovlar va kassa holati real-vaqtda</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="role-features-grid">
-              <div class="feature-box">
-                <div class="feature-head">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-                  <h4>+3% Ustama va 1 000 So'mga Avto-Yaxlitlash</h4>
-                </div>
-                <p>
-                  Summa kiritilganda +3% qo'shilib, yuqoriga 1 000 so'mga avtomatik yaxlitlanadi (masalan: 50 000 so'm kiritilsa -> 52 000 so'm bo'ladi). Minimal summa 30 000 so'm. Xodim hisob-kitobda adashmaydi.
-                </p>
-              </div>
-
-              <div class="feature-box feature-box-highlight">
-                <span class="feature-badge-alert">Katta Summaga Tushishdan Himoya</span>
-                <div class="feature-head">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f43f5e" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-                  <h4>Takroriy Karta Ogohlantirishi</h4>
-                </div>
-                <p>
-                  Bir kunda (Toshkent vaqti) aynan bitta karta raqami qayta kiritilsa, tizim darhol <strong>`DIQQAT: Bu kartaga bugun to'lov qilindi!`</strong> deb ogohlantiradi. Bu xodimning adashib 2 marta pul tashlab yuborishini oldini oladi.
-                </p>
-              </div>
-
-              <div class="feature-box">
-                <div class="feature-head">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                  <h4>KPI Ballar va Sog'lom Raqobat</h4>
-                </div>
-                <p>
-                  Har bir million so'mlik aylanma va har bir sotilgan sim-karta uchun xodimga KPI ball beriladi. Xodimlar liderlar jadvalida kim oldinda borayotganini ko'rib, savdoni oshirishga intiladi.
-                </p>
-              </div>
-
-              <div class="feature-box">
-                <div class="feature-head">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
-                  <h4>Xato Hisobotdan Avtomatik Qaytarish</h4>
-                </div>
-                <p>
-                  Agar xodim kun oxirida adashib tasdiqlanmagan hisobotni noto'g'ri topshirib yuborsa, qayta topshirishda eski raqamlar avtomatik asliga qaytadi — balans buzilmaydi.
                 </p>
               </div>
             </div>
@@ -1483,7 +1483,7 @@
     </div>
   </div>
 
-  <script src="js/script.js?v=2.35"></script>
+  <script src="js/script.js?v=2.36"></script>
 </body>
 </html>
 
