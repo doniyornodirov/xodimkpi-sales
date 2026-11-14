@@ -12,5 +12,5 @@ __pycache__/
 # Temp / build
 video_build/
 video_temp/
-*.mp4
+!assets/*.mp4
 

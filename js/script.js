@@ -20,6 +20,12 @@ document.addEventListener('DOMContentLoaded', () => {
       if (targetPanel) {
         targetPanel.classList.add('active');
       }
+
+      // Pause video if leaving rahbar tab
+      const rahbarVid = document.getElementById('rahbarVideoPlayer');
+      if (rahbarVid && targetRole !== 'rahbar' && !rahbarVid.paused) {
+        rahbarVid.pause();
+      }
     });
   });
 
@@ -410,4 +416,23 @@ document.addEventListener('DOMContentLoaded', () => {
       window.closeLightbox();
     }
   });
+
+  // 11. Rahbar Video Player
+  const rahbarVid = document.getElementById('rahbarVideoPlayer');
+  const rahbarOverlay = document.getElementById('rahbarVideoOverlay');
+
+  window.playRahbarVideo = function() {
+    if (rahbarVid) {
+      rahbarVid.play().then(() => {
+        if (rahbarOverlay) rahbarOverlay.classList.add('playing');
+      }).catch(() => {
+        if (rahbarOverlay) rahbarOverlay.classList.add('playing');
+      });
+    }
+  };
+
+  if (rahbarVid && rahbarOverlay) {
+    rahbarVid.addEventListener('play', () => rahbarOverlay.classList.add('playing'));
+    rahbarVid.addEventListener('ended', () => rahbarOverlay.classList.remove('playing'));
+  }
 });
