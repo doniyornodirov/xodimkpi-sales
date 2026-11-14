@@ -522,7 +522,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Video event listeners
     video.addEventListener('play', () => {
-      container.classList.add('is-playing');
+      container.classList.add('is-started', 'is-playing');
       showFlash('play');
       resetInactivity();
     });
@@ -534,7 +534,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     video.addEventListener('ended', () => {
-      container.classList.remove('is-playing', 'is-inactive');
+      container.classList.remove('is-started', 'is-playing', 'is-inactive');
       video.currentTime = 0;
       if (progressFill) progressFill.style.width = '0%';
       if (timeCur) timeCur.textContent = '0:00';
