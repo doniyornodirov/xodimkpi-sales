@@ -23,13 +23,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Pause videos if leaving respective tab
       const xodimVid = document.getElementById('xodimVideoPlayer');
+      const kassirVid = document.getElementById('kassirVideoPlayer');
       const rahbarVid = document.getElementById('rahbarVideoPlayer');
-      if (xodimVid && targetRole !== 'xodim' && !xodimVid.paused) {
-        xodimVid.pause();
-      }
-      if (rahbarVid && targetRole !== 'rahbar' && !rahbarVid.paused) {
-        rahbarVid.pause();
-      }
+      if (xodimVid && targetRole !== 'xodim' && !xodimVid.paused) xodimVid.pause();
+      if (kassirVid && targetRole !== 'kassir' && !kassirVid.paused) kassirVid.pause();
+      if (rahbarVid && targetRole !== 'rahbar' && !rahbarVid.paused) rahbarVid.pause();
     });
   });
 
@@ -421,13 +419,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 11. Xodim & Rahbar Video Players
+  // 11. Role Video Players (Xodim, Kassir, Rahbar)
   const xodimVid = document.getElementById('xodimVideoPlayer');
   const xodimOverlay = document.getElementById('xodimVideoOverlay');
+  const kassirVid = document.getElementById('kassirVideoPlayer');
+  const kassirOverlay = document.getElementById('kassirVideoOverlay');
+  const rahbarVid = document.getElementById('rahbarVideoPlayer');
+  const rahbarOverlay = document.getElementById('rahbarVideoOverlay');
+
+  function pauseAllExcept(exceptVid) {
+    [xodimVid, kassirVid, rahbarVid].forEach(v => {
+      if (v && v !== exceptVid && !v.paused) v.pause();
+    });
+  }
 
   window.playXodimVideo = function() {
     if (xodimVid) {
-      if (rahbarVid && !rahbarVid.paused) rahbarVid.pause();
+      pauseAllExcept(xodimVid);
       xodimVid.play().then(() => {
         if (xodimOverlay) xodimOverlay.classList.add('playing');
       }).catch(() => {
@@ -441,12 +449,25 @@ document.addEventListener('DOMContentLoaded', () => {
     xodimVid.addEventListener('ended', () => xodimOverlay.classList.remove('playing'));
   }
 
-  const rahbarVid = document.getElementById('rahbarVideoPlayer');
-  const rahbarOverlay = document.getElementById('rahbarVideoOverlay');
+  window.playKassirVideo = function() {
+    if (kassirVid) {
+      pauseAllExcept(kassirVid);
+      kassirVid.play().then(() => {
+        if (kassirOverlay) kassirOverlay.classList.add('playing');
+      }).catch(() => {
+        if (kassirOverlay) kassirOverlay.classList.add('playing');
+      });
+    }
+  };
+
+  if (kassirVid && kassirOverlay) {
+    kassirVid.addEventListener('play', () => kassirOverlay.classList.add('playing'));
+    kassirVid.addEventListener('ended', () => kassirOverlay.classList.remove('playing'));
+  }
 
   window.playRahbarVideo = function() {
     if (rahbarVid) {
-      if (xodimVid && !xodimVid.paused) xodimVid.pause();
+      pauseAllExcept(rahbarVid);
       rahbarVid.play().then(() => {
         if (rahbarOverlay) rahbarOverlay.classList.add('playing');
       }).catch(() => {
