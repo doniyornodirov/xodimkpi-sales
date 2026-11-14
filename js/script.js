@@ -21,8 +21,12 @@ document.addEventListener('DOMContentLoaded', () => {
         targetPanel.classList.add('active');
       }
 
-      // Pause video if leaving rahbar tab
+      // Pause videos if leaving respective tab
+      const xodimVid = document.getElementById('xodimVideoPlayer');
       const rahbarVid = document.getElementById('rahbarVideoPlayer');
+      if (xodimVid && targetRole !== 'xodim' && !xodimVid.paused) {
+        xodimVid.pause();
+      }
       if (rahbarVid && targetRole !== 'rahbar' && !rahbarVid.paused) {
         rahbarVid.pause();
       }
@@ -417,12 +421,32 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 11. Rahbar Video Player
+  // 11. Xodim & Rahbar Video Players
+  const xodimVid = document.getElementById('xodimVideoPlayer');
+  const xodimOverlay = document.getElementById('xodimVideoOverlay');
+
+  window.playXodimVideo = function() {
+    if (xodimVid) {
+      if (rahbarVid && !rahbarVid.paused) rahbarVid.pause();
+      xodimVid.play().then(() => {
+        if (xodimOverlay) xodimOverlay.classList.add('playing');
+      }).catch(() => {
+        if (xodimOverlay) xodimOverlay.classList.add('playing');
+      });
+    }
+  };
+
+  if (xodimVid && xodimOverlay) {
+    xodimVid.addEventListener('play', () => xodimOverlay.classList.add('playing'));
+    xodimVid.addEventListener('ended', () => xodimOverlay.classList.remove('playing'));
+  }
+
   const rahbarVid = document.getElementById('rahbarVideoPlayer');
   const rahbarOverlay = document.getElementById('rahbarVideoOverlay');
 
   window.playRahbarVideo = function() {
     if (rahbarVid) {
+      if (xodimVid && !xodimVid.paused) xodimVid.pause();
       rahbarVid.play().then(() => {
         if (rahbarOverlay) rahbarOverlay.classList.add('playing');
       }).catch(() => {
